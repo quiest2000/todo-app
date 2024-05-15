@@ -36,7 +36,7 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  int selectedIndex = 0;
+  int _selectedIndex = 0;
 
   Widget getPage(int index) {
     switch (index) {
@@ -51,11 +51,27 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
-    Widget page = getPage(selectedIndex);
+    Widget page = getPage(_selectedIndex);
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text('TODO: markup the Appbar'),
+        backgroundColor: Theme.of(context).colorScheme.primary,
+        centerTitle: false,
+        title: const Text(
+          'TODO APP',
+          style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+        ),
+        actions: [
+          Padding(
+            padding: const EdgeInsets.only(right: 12),
+            child: IconButton(
+              color: Colors.white,
+              iconSize: 32,
+              onPressed: () => {print('Calendar clicked')},
+              icon: const Icon(Icons.calendar_month),
+            ),
+          ),
+        ],
       ),
       body: Center(
         child: page,
@@ -79,10 +95,10 @@ class _MyHomePageState extends State<MyHomePage> {
         ],
         onTap: (value) => {
           setState(() {
-            selectedIndex = value;
+            _selectedIndex = value;
           }),
         },
-        currentIndex: selectedIndex,
+        currentIndex: _selectedIndex,
       ),
     );
   }
