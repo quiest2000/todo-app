@@ -1,40 +1,40 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
-class TaskPage extends StatefulWidget {
-  const TaskPage({super.key, required this.title});
+import 'models/to_do.dart';
+
+class TaskPage extends StatelessWidget {
+  const TaskPage({super.key, required this.title, required this.items});
 
   final String title;
+  final List<ToDo> items;
 
-  @override
-  State<TaskPage> createState() => _TaskPageState();
-}
-
-class _TaskPageState extends State<TaskPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: ListView.builder(
-        itemCount: 30,
-        itemBuilder: (context, index) => Container(
-          padding: const EdgeInsets.only(left: 5, right: 5),
-          height: 110,
-          child: ListItem(
-            task: 'Task $index',
-            description: 'Description $index',
-          ),
-        ),
+        itemCount: items.length,
+        itemBuilder: (context, index) {
+          final item = items.elementAt(index);
+          return Container(
+            padding: const EdgeInsets.only(left: 5, right: 5),
+            height: 110,
+            child: ListItem(
+              title: item.title,
+              subTitle: item.subTitle,
+            ),
+          );
+        },
       ),
     );
   }
 }
 
-
 class ListItem extends StatelessWidget {
-  final String task;
-  final String description;
+  final String title;
+  final String subTitle;
 
-  const ListItem({super.key, required this.task, required this.description});
+  const ListItem({super.key, required this.title, required this.subTitle});
 
   @override
   Widget build(BuildContext context) {
@@ -54,7 +54,7 @@ class ListItem extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Text(
-                      task.toUpperCase(),
+                      title.toUpperCase(),
                       style: TextStyle(
                         fontWeight: FontWeight.bold,
                         color: theme.colorScheme.primary,
@@ -63,7 +63,7 @@ class ListItem extends StatelessWidget {
                     ),
                     const SizedBox(height: 8),
                     Text(
-                      description.toUpperCase(),
+                      subTitle.toUpperCase(),
                       style: const TextStyle(fontSize: 10),
                     ),
                   ],

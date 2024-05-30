@@ -1,5 +1,8 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:todo_app/models/to_do.dart';
+import 'package:todo_app/task_detail_page.dart';
 import 'package:todo_app/task_page.dart';
 
 void main() {
@@ -39,21 +42,41 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   int _selectedIndex = 0;
+
   Widget getPage(int index) {
     switch (index) {
       case 0:
-        return const TaskPage(title: 'All Tasks');
+        var items = List.generate(
+          15,
+          (index) => ToDo(
+            'Sub title of task $index',
+            false,
+            title: 'Title of task $index',
+          ),
+        );
+        return TaskPage(title: 'All Tasks', items: items);
       case 1:
-        return const TaskPage(title: 'Completed Tasks');
+        var completedItems = List.generate(
+          3,
+          (index) => ToDo('Sub title of task $index', true,
+              title: 'Title of task $index'),
+        );
+        return TaskPage(title: 'Completed Tasks', items: completedItems);
       default:
         throw Exception('Invalid index');
     }
   }
 
+  var _pages = <Widget>[];
+
+  @override
+  void initState() {
+    super.initState();
+    _pages = [getPage(0), getPage(1)];
+  }
+
   @override
   Widget build(BuildContext context) {
-    Widget page = getPage(_selectedIndex);
-
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Theme.of(context).colorScheme.primary,
@@ -74,7 +97,10 @@ class _MyHomePageState extends State<MyHomePage> {
           ),
         ],
       ),
-      body: page,
+      body: IndexedStack(
+        index: _selectedIndex,
+        children: _pages,
+      ),
       bottomNavigationBar: BottomNavigationBar(
         items: const <BottomNavigationBarItem>[
           BottomNavigationBarItem(
@@ -105,12 +131,20 @@ class _MyHomePageState extends State<MyHomePage> {
           width: 30,
           height: 30,
         ),
-        onPressed: () => {print('Add clicked')},
         style: ButtonStyle(
           backgroundColor:
               MaterialStateProperty.all(Theme.of(context).colorScheme.primary),
           fixedSize: const MaterialStatePropertyAll(Size(70, 70)),
         ),
+        onPressed: () async => {
+          await Navigator.push(
+            context,
+            CupertinoPageRoute(
+              builder: (context) => const TaskDetailPage(),
+              settings: const RouteSettings(arguments: true),
+            ),
+          ),
+        },
       ),
     );
   }
