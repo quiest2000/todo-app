@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:todo_app/models/to_do.dart';
 
 class TaskDetailPage extends StatefulWidget {
   const TaskDetailPage({super.key});
@@ -14,9 +15,10 @@ class TaskDetailPage extends StatefulWidget {
 class _TaskDetailPageState extends State<TaskDetailPage> {
   @override
   Widget build(BuildContext context) {
-    var isAddNew = ModalRoute.of(context)!.settings.arguments as bool;
-    print('TaskDetailPage.build isAddNew: $isAddNew');
-    var title = isAddNew ? 'Add Task' : 'Edit Task';
+    var item = ModalRoute.of(context)!.settings.arguments as ToDo?;
+
+    print('TaskDetailPage.build isAddNew: $item');
+    var title = item == null ? 'Add Task' : 'Edit Task';
 
     return Scaffold(
       appBar: AppBar(

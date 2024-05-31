@@ -58,8 +58,11 @@ class _MyHomePageState extends State<MyHomePage> {
       case 1:
         var completedItems = List.generate(
           3,
-          (index) => ToDo('Sub title of task $index', true,
-              title: 'Title of task $index'),
+          (index) => ToDo(
+            'Sub title of task $index',
+            true,
+            title: 'Title of task $index',
+          ),
         );
         return TaskPage(title: 'Completed Tasks', items: completedItems);
       default:
@@ -141,7 +144,8 @@ class _MyHomePageState extends State<MyHomePage> {
             context,
             CupertinoPageRoute(
               builder: (context) => const TaskDetailPage(),
-              settings: const RouteSettings(arguments: true),
+              settings:
+                  const RouteSettings(name: 'todoItem', arguments: null),
             ),
           ),
         },

@@ -1,5 +1,7 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:todo_app/task_detail_page.dart';
 
 import 'models/to_do.dart';
 
@@ -19,10 +21,7 @@ class TaskPage extends StatelessWidget {
           return Container(
             padding: const EdgeInsets.only(left: 5, right: 5),
             height: 110,
-            child: ListItem(
-              title: item.title,
-              subTitle: item.subTitle,
-            ),
+            child: ListItem(item: item),
           );
         },
       ),
@@ -31,10 +30,11 @@ class TaskPage extends StatelessWidget {
 }
 
 class ListItem extends StatelessWidget {
-  final String title;
-  final String subTitle;
+  // final String title;
+  // final String subTitle;
+  final ToDo item;
 
-  const ListItem({super.key, required this.title, required this.subTitle});
+  const ListItem({super.key, required this.item});
 
   @override
   Widget build(BuildContext context) {
@@ -54,7 +54,7 @@ class ListItem extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Text(
-                      title.toUpperCase(),
+                      item.title.toUpperCase(),
                       style: TextStyle(
                         fontWeight: FontWeight.bold,
                         color: theme.colorScheme.primary,
@@ -63,7 +63,7 @@ class ListItem extends StatelessWidget {
                     ),
                     const SizedBox(height: 8),
                     Text(
-                      subTitle.toUpperCase(),
+                      item.subTitle.toUpperCase(),
                       style: const TextStyle(fontSize: 10),
                     ),
                   ],
@@ -75,7 +75,16 @@ class ListItem extends StatelessWidget {
               children: [
                 IconButton(
                   icon: const SvgIcon(assetName: 'images/Pencil.svg'),
-                  onPressed: () => print('Edit clicked'),
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      CupertinoPageRoute(
+                        builder: (context) => const TaskDetailPage(),
+                        settings:
+                            RouteSettings(name: 'todoItem', arguments: item),
+                      ),
+                    );
+                  },
                 ),
                 IconButton(
                   icon: const SvgIcon(assetName: 'images/Trash.svg'),
