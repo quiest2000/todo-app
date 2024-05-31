@@ -40,7 +40,51 @@ class _TaskDetailPageState extends State<TaskDetailPage> {
           },
         ),
       ),
-      body: const Center(child: Text('Task Detail Page')),
+      body: Padding(
+        padding: const EdgeInsets.all(20),
+        child: Column(
+          mainAxisSize: MainAxisSize.max,
+          mainAxisAlignment: MainAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            const TextField(
+              decoration: InputDecoration(
+                labelText: 'Title',
+                border: UnderlineInputBorder(),
+              ),
+            ),
+            const SizedBox(height: 20), // Add this line
+            const TextField(
+              decoration: InputDecoration(
+                labelText: 'Detail',
+                border: UnderlineInputBorder(),
+              ),
+            ),
+            const SizedBox(height: 20),
+            ElevatedButton(
+              onPressed: () => print('ADD clicked'),
+              style: ButtonStyle(
+                backgroundColor: MaterialStateColor.resolveWith(
+                    (states) => Theme.of(context).colorScheme.primary),
+                shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                  RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(18.0),
+                  ),
+                ),
+              ),
+              child: const Text(
+                'ADD',
+                style: TextStyle(
+                  height: 2.5,
+                  color: Colors.white,
+                  fontWeight: FontWeight.bold,
+                  fontSize: 20,
+                ),
+              ),
+            ),
+          ],
+        ),
+      ),
     );
   }
 }
