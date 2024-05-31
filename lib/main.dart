@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:todo_app/models/to_do.dart';
@@ -156,7 +155,7 @@ class _MyHomePageState extends State<MyHomePage> {
         onPressed: () async => {
           await Navigator.push(
             context,
-            CupertinoPageRoute(
+            MaterialPageRoute(
               builder: (context) => const TaskDetailPage(),
               settings: const RouteSettings(name: 'todoItem', arguments: null),
             ),
