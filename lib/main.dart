@@ -94,7 +94,11 @@ class _MyHomePageState extends State<MyHomePage> {
             child: IconButton(
               color: Colors.white,
               iconSize: 32,
-              onPressed: () => {print('Calendar clicked')},
+              onPressed: () => {
+                setState(() {
+                  _selectedIndex = 1;
+                },),
+              },
               icon: const Icon(Icons.calendar_month),
             ),
           ),
@@ -105,18 +109,28 @@ class _MyHomePageState extends State<MyHomePage> {
         children: _pages,
       ),
       bottomNavigationBar: BottomNavigationBar(
-        items: const <BottomNavigationBarItem>[
+        items: <BottomNavigationBarItem>[
           BottomNavigationBarItem(
-            icon: Icon(
+            icon: const Icon(
               Icons.list,
               size: 30,
+            ),
+            activeIcon: Icon(
+              Icons.list_alt,
+              size: 30,
+              color: Theme.of(context).colorScheme.secondary,
             ),
             label: 'All',
           ),
           BottomNavigationBarItem(
-            icon: Icon(
+            icon: const Icon(
               Icons.check,
               size: 30,
+            ),
+            activeIcon: Icon(
+              Icons.check_circle_outline,
+              size: 30,
+              color: Theme.of(context).colorScheme.secondary,
             ),
             label: 'Completed',
           ),
@@ -144,8 +158,7 @@ class _MyHomePageState extends State<MyHomePage> {
             context,
             CupertinoPageRoute(
               builder: (context) => const TaskDetailPage(),
-              settings:
-                  const RouteSettings(name: 'todoItem', arguments: null),
+              settings: const RouteSettings(name: 'todoItem', arguments: null),
             ),
           ),
         },

@@ -47,32 +47,35 @@ class _TaskDetailPageState extends State<TaskDetailPage> {
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            const TextField(
-              decoration: InputDecoration(
+            TextField(
+              controller: TextEditingController(text: item?.title ?? ''),
+              decoration: const InputDecoration(
                 labelText: 'Title',
                 border: UnderlineInputBorder(),
               ),
             ),
             const SizedBox(height: 20), // Add this line
-            const TextField(
-              decoration: InputDecoration(
+            TextField(
+              controller: TextEditingController(text: item?.subTitle ?? ''),
+              decoration: const InputDecoration(
                 labelText: 'Detail',
                 border: UnderlineInputBorder(),
               ),
             ),
             const SizedBox(height: 20),
-            ElevatedButton(
+            IconButton(
               onPressed: () => print('ADD clicked'),
               style: ButtonStyle(
                 backgroundColor: MaterialStateColor.resolveWith(
-                    (states) => Theme.of(context).colorScheme.primary),
+                  (states) => Theme.of(context).colorScheme.primary,
+                ),
                 shape: MaterialStateProperty.all<RoundedRectangleBorder>(
                   RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(18.0),
                   ),
                 ),
               ),
-              child: const Text(
+              icon: const Text(
                 'ADD',
                 style: TextStyle(
                   height: 2.5,
